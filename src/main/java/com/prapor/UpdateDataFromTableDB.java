@@ -9,19 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Test_2 {
+public class UpdateDataFromTableDB {
     public static void main(String[] args) {//TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
 
         try (SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Employee.class)
                 .buildSessionFactory()) {
+            Employee employee;
             List<Employee> employeeList = new ArrayList<>();
             Session session = factory.openSession();
             session.beginTransaction();//start
-            employeeList = session.createQuery("FROM Employee WHERE department = 'GSM' " +
-                            "AND name  = 'Nikolay'")
-                    .getResultList();
+
+            employee = session.get(Employee.class, 1);
+            employee.setSalary(343501);
+
+            session.createQuery("UPDATE Employee SET name='Vanya' WHERE name = 'Ivan'").executeUpdate();
+
+
+
             session.getTransaction().commit();//end
 
             for (Object e : employeeList) {
