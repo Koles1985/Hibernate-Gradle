@@ -1,4 +1,4 @@
-package com.prapor;
+package one_to_one_ratio;
 
 import com.prapor.entities.Employee;
 import org.hibernate.Session;
@@ -15,9 +15,13 @@ public class Test_1 {
 
         try{
             Session session = factory.openSession();
-
-
+            Employee employee =
+                    new Employee("Fedor", "Emelyanenko", "MMA", 1200);
+            session.beginTransaction();
+            session.persist(employee);
+            employee = session.get(Employee.class,2);
             session.getTransaction().commit();
+            System.out.println(employee);
         }
         finally {
             factory.close();

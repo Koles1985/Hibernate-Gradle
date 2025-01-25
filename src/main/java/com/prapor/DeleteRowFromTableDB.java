@@ -19,8 +19,8 @@ public class DeleteRowFromTableDB {
             Session session = factory.openSession();
             session.beginTransaction();
 
-            employee = session.get(Employee.class, 2);
-            session.delete(employee);
+            employee = session.get(Employee.class, 3);
+            session.remove(employee);
 
             int executeUpdate = session.createQuery("DELETE Employee WHERE salary>1000").executeUpdate();
             System.out.println(executeUpdate);
