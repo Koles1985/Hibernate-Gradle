@@ -12,7 +12,7 @@ public class Product {
     int id;
 
     @Column(name = "code")
-    int code;
+    String code;
 
     @Column(name = "name")
     String name;
@@ -23,11 +23,15 @@ public class Product {
     @Column(name = "kg")
     int kg;
 
+    @OneToOne(mappedBy = "product",
+    cascade = CascadeType.ALL)
+    private Invoice invoice;
+
 
     public Product() {
     }
 
-    public Product(int code, String name, int liters, int kg) {
+    public Product(String code, String name, int liters, int kg) {
         this.code = code;
         this.name = name;
         this.liters = liters;
@@ -42,11 +46,11 @@ public class Product {
         this.id = id;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -74,6 +78,14 @@ public class Product {
         this.kg = kg;
     }
 
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -82,6 +94,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", liters=" + liters +
                 ", kg=" + kg +
+                "invoice=" + invoice +
                 '}';
     }
 }

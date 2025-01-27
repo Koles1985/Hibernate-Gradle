@@ -1,29 +1,34 @@
 package one_to_one_ratio;
 
-import com.prapor.entities.Employee;
+
+import one_to_one_ratio.entities.Invoice;
+import one_to_one_ratio.entities.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-public class Test_1 {
+public class SaveOnDBInTwoTable {
     public static void main(String[] args) {//TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Employee.class)
+                .addAnnotatedClass(Invoice.class)
+                .addAnnotatedClass(Product.class)
                 .buildSessionFactory();
-
+        Session session = null;
         try{
-            Session session = factory.openSession();
-            Employee employee =
-                    new Employee("Fedor", "Emelyanenko", "MMA", 1200);
+            Product product = new Product("0902","АИ - 92", 11097, 8400);
+            Invoice invoice = new Invoice(1131, "16.01.2025", "janury",
+                    "в/ч00000","+", product);
+
+            session = factory.openSession();
             session.beginTransaction();
-            session.persist(employee);
-            employee = session.get(Employee.class,2);
+            session.persist(invoice);
             session.getTransaction().commit();
-            System.out.println(employee);
+
         }
         finally {
+            session.close();
             factory.close();
         }
     }

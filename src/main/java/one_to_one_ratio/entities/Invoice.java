@@ -24,8 +24,8 @@ public class Invoice {
     @Column(name = "from_whom_to_whom")
     String fromWhomToWhom;
 
-    @Column(name = "coming_consumption(+/-)")
-    char coming_consumption;
+    @Column(name = "coming_consumption")
+    String coming_consumption;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
@@ -35,13 +35,23 @@ public class Invoice {
     }
 
     public Invoice(int number, String date, String month,
-                   String fromWhomToWhom, char coming_consumption, Product product) {
+                   String fromWhomToWhom, String coming_consumption, Product product) {
         this.number = number;
         this.date = date;
         this.month = month;
         this.fromWhomToWhom = fromWhomToWhom;
         this.coming_consumption = coming_consumption;
         this.product = product;
+    }
+
+    public Invoice(int number, String date, String month,
+                   String fromWhomToWhom, String coming_consumption) {
+        this.number = number;
+        this.date = date;
+        this.month = month;
+        this.fromWhomToWhom = fromWhomToWhom;
+        this.coming_consumption = coming_consumption;
+
     }
 
     public int getId() {
@@ -84,11 +94,11 @@ public class Invoice {
         this.fromWhomToWhom = fromWhomToWhom;
     }
 
-    public char getComing_consumption() {
+    public String getComing_consumption() {
         return coming_consumption;
     }
 
-    public void setComing_consumption(char coming_consumption) {
+    public void setComing_consumption(String coming_consumption) {
         this.coming_consumption = coming_consumption;
     }
 
@@ -100,6 +110,7 @@ public class Invoice {
         this.product = product;
     }
 
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -108,8 +119,8 @@ public class Invoice {
                 ", date='" + date + '\'' +
                 ", month='" + month + '\'' +
                 ", fromWhomToWhom='" + fromWhomToWhom + '\'' +
-                ", coming_consumption=" + coming_consumption +
-                ", productName='" + product + '\'' +
+                ", coming_consumption='" + coming_consumption + '\'' +
+                ", product=" + product.toString() +
                 '}';
     }
 }
