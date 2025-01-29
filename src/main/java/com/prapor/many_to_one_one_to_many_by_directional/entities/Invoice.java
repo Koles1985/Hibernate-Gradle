@@ -2,6 +2,7 @@ package com.prapor.many_to_one_one_to_many_by_directional.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,10 @@ public class Invoice {
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
+    @OneToMany(cascade = CascadeType.ALL
+        ,mappedBy = "invoice")
+    private List<Product> productList;
+
     public Invoice() {
     }
 
@@ -42,6 +47,25 @@ public class Invoice {
         this.month = month;
         this.fromWhom_toWhom = fromWhom_toWhom;
         this.come_gone = come_gone;
+    }
+
+    public Invoice(int number, String date, String month, String fromWhom_toWhom,
+                   String come_gone, Storage storage, List<Product> products) {
+        this.number = number;
+        this.date = date;
+        this.month = month;
+        this.fromWhom_toWhom = fromWhom_toWhom;
+        this.come_gone = come_gone;
+        this.storage = storage;
+        this.productList = products;
+    }
+
+    public void addProductToProductList(Product product){
+        if(productList == null){
+            productList = new ArrayList<>();
+        }
+        productList.add(product);
+        product.setInvoice(this);
     }
 
     public int getId() {
@@ -98,6 +122,14 @@ public class Invoice {
 
     public void setStorage(Storage storage) {
         this.storage = storage;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @Override

@@ -10,24 +10,25 @@ import java.util.List;
 
 
 public class Test_2 {
-    public static void main(String[] args) {//TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
+    public static void main(String[] args) {
+        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
 
-        try (SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Employee.class)
-                .buildSessionFactory()) {
-            List<Employee> employeeList = new ArrayList<>();
-            Session session = factory.openSession();
-            session.beginTransaction();//start
-            employeeList = session.createQuery("FROM Employee WHERE department = 'GSM' " +
-                            "AND name  = 'Nikolay'")
-                    .getResultList();
-            session.getTransaction().commit();//end
-
-            for (Object e : employeeList) {
-                System.out.println(e.toString());
-            }
-
-        }
+//        try (SessionFactory factory = new Configuration()
+//                .configure("hibernate.cfg.xml")
+//                .addAnnotatedClass(Employee.class)
+//                .buildSessionFactory()) {
+//            List<Employee> employeeList = new ArrayList<>();
+//            Session session = factory.openSession();
+//            session.beginTransaction();//start
+//            employeeList = session.createQuery("FROM Employee WHERE department = 'GSM' " +
+//                            "AND name  = 'Nikolay'")
+//                    .getResultList();
+//            session.getTransaction().commit();//end
+//
+//            for (Object e : employeeList) {
+//                System.out.println(e.toString());
+//            }
+//
+//        }
     }
 }
